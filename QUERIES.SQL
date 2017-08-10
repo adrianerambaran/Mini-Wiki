@@ -4,11 +4,11 @@ Create Table article_content(
 title varchar(50) NOT NULL UNIQUE,
 content TEXT,
 created datetime NOT NULL default current_timestamp,
-modified datetime NOT NULL default current_timestamp,
+modified datetime NOT NULL default current_timestamp
 );
 
 insert into article_content (title,content)
-values ('# This is mini wiki
+values ('Welcome to MiniWiki', '# This is mini wiki
 * As of now it supports adding pages
 * editing pages
 * Supports markdown from Marked Library[Marked]
