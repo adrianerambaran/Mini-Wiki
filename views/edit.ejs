@@ -1,0 +1,42 @@
+<html>
+	<head>
+    <title> Mini Wiki - <%= title %> </title>
+    <link rel="stylesheet" type="text/css" href="/public/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script type = "text/javascript" src = "/public/Ajax_Calls.js"> </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.2/bootstrap3-typeahead.min.js"></script>  
+  </head>
+  <body>
+  <div class = "top_container">
+    <div class = "top_container_left">
+      <img class = "image_logo" src = "/public/images/Logo.png" alt = "Logo">
+    </div>
+    <div class = "top_container_right">Created By Adriane Rambaran
+    </div>
+  </div>
+    <nav class = "nav_container">
+        <div class="navbar_options">
+          <div class = "search_me">
+            <ul class = "navbar_list">
+            <li class = "nav_container_search"><input class="typeahead" spellcheck="false" autocomplete="off" name="typeahead" id = "typeahead" type="text" placeholder="Search for an article"></li>
+            <li class = "nav_container_li"><a title = "Go Home" href ="/">Home</a></li>
+           </ul>
+           </div>
+        </div>
+    </nav>
+<br><br>
+    <div class="article_container">
+      <div class="title_area_header">
+        <input class="title_input" type="text" autocomplete="off" id = "title" name="title" value = "<%= title %>"></input> 
+      </div>
+      <textarea id="textbox" class="textArea_editor" name="textbox" placeholder="Add Some Text" rows="50" cols = "100"><%- content %></textarea>
+      <input id = "submit-button" type="submit" value = 'Save' class="btn_Submit" onclick = "saveData(previousTitle)"></button>
+      </div>
+ <script> 
+      //Assign values using EJS.
+      var previousTitle ="<%= title %>";
+</script>
+  </body>
+</html>
+
+</html>
