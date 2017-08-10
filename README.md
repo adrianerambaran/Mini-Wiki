@@ -1,6 +1,6 @@
 # Mini-Wiki
 ## Instructions to run
-1. Install NodeJs.
+1. Install NodeJs and download this repo.
 -Installation should add path for the two command line utilities; npm and node.
 2. Open command prompt and CD to desired directory for project to run.
 3. Dependencies are already installed in the Folder.
