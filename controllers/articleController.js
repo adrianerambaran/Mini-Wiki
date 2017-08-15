@@ -1,7 +1,18 @@
 var WikiArticle = require('../models/WikiArticles');
 var path = require('path');
+var async = require('async'); 
 var marked = require('marked');
+var renderer = new marked.Renderer();
 
+//Set custom output for image request link
+renderer.image = function(href,title,text)
+{
+	var out = '<img src="' + href + '" alt="' + text + '" style = "width: 300px; height:300px"';
+  if (title) {
+    out += ' title="' + title + '"/>';
+  }
+  return out; //Returns set height and width for images uploaded into articles.
+}
 exports.index = function(req,res,next)
 {
 	WikiArticle.findArticle('Welcome to MiniWiki', function(err, result)
@@ -12,7 +23,7 @@ exports.index = function(req,res,next)
 		var article = 
 		{
 			title: result[0][0].title,
-			content: marked(result[0][0].content)
+			content: marked(result[0][0].content, {renderer: renderer})
 		}
 		res.render('homepage', article); 
 	});
@@ -28,9 +39,10 @@ exports.get_URL = function(req,res,next)
 			var article = 
 			{
 				title: result[0][0].title,
-				content: marked(result[0][0].content)
+				content: marked(result[0][0].content, {renderer: renderer})
 
 			}
+			//console.log(article.content);
 			res.render('homepage', article);
 		}
 		else //Page not found...Should be added Page like Wikipedia if not Found.
@@ -47,7 +59,7 @@ exports.get_edit_URL = function(req,res,next)
 	WikiArticle.findArticle(pageToEdit, function(err, result)
 	{
 		if(err) return next(err);
-		if(result[0].length > 0) //If a title exists, then we pull article, if not then return empty.
+		if(result[0].length > 0) //If title is found pull
 		{
 			var article = 
 			{
@@ -94,25 +106,10 @@ exports.post_save_data = function(req,res,next)
 	}
 	else //Title Change. Check if title can be used and updated.
 	{
-		WikiArticle.findTitle(req.body.title, function(err, result)
+		WikiArticle.saveArticle(req.body.title, req.body.content, req.body.prevTitle, function(err, result)
 		{
 			if(err) return next(err);
-			if(result[0].length> 0)
-			{
-				res.send("Title is already being used. Enter in a different title name");
-			}
-			else//Update article and delete old one since title is being changed.
-			{ 
-					WikiArticle.saveArticle(req.body.title, req.body.content, req.body.prevTitle, function(err, result)
-					{
-						if(err) return next(err);
-					});
-					WikiArticle.deleteArticle(req.body.prevTitle, function(err,result)
-					{
-						if(err) return next(err);
-						res.send({redirect: '../'+req.body.title});
-					});
-			}
+			res.send({redirect: '../'+req.body.title});
 		});
 	}
 };
@@ -128,7 +125,7 @@ exports.get_search_articles = function(req,res,next)
 		{
 			data.push(result[0][i].title);//[0][i] table.title
 		}
-		res.end(JSON.stringify(data)); //Send titles found.
+		res.end(JSON.stringify(data)); //Send
 	});
 }
 

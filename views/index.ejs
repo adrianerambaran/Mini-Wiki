@@ -1,0 +1,43 @@
+<html>
+	<head>
+		<title> Mini Wiki - Add Page</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <script src="http://code.jquery.com/jquery-1.6.2.min.js"></script>
+    <script type = "text/javascript" src = "../assets/Ajax_Calls.js"> </script>
+	</head>
+  <body>
+  <nav class = "nav_container">
+  <img class = "image_logo" src = "../assets/images/Logo.png" alt = "Logo"> 
+  <div class = "container">
+    <div class = "nav_head">
+
+      </div>
+      <div id="navbar_options">
+        <ul class="navbar_list">
+          <li class="active"><a>Edit</a></li>
+          <li><a href="/uploadImage">Upload</a></li>
+           <li><a href ="/">Home</a></li>
+           </ul>
+        <form class="nav_search_article"search" method='post' action="/search/"><!-- article name will go after / -->
+        
+        </form>
+
+      </div>
+    </div>
+    </nav>  
+
+      <div class="article_container">
+      <div class="text_area_header">
+        <br><br> 
+        <br><br>
+        <br><br> 
+        <br><br>
+       <input class="title_input" type="text" autocomplete="off" autofocus="" id = "title" name="title" placeholder="Title Goes Here">
+       </input> 
+
+      </div>
+      <textarea id="textbox" class="textArea_editor" name="textbox" placeholder="Add Some Text" rows="50" cols = "100" ></textarea>
+      <input id = "submit-button" type="submit" value = 'Submit' class="btn_Submit" onclick = "validateTitle()""></button>
+    </div>
+  </body>
+</html>

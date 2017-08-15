@@ -12,5 +12,9 @@ router.get('/edit/:url', function(req,res)
 	res.redirect('/wiki/edit/'+req.params.url);
 });
 
+router.get('/uploadImage', function(req,res)
+{
+	res.redirect('/wiki_image/uploadImage');
+});
 
 module.exports = router;

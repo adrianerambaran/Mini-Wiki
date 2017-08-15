@@ -23,7 +23,7 @@ function validateTitle()
          
       },
       error: function(result){
-       alert("Something went wrong");//Shouldn't enter this
+       //Shouldn't enter this
       }
 
     });
@@ -60,6 +60,23 @@ function saveData(previousTitle)
 	});
 }
 
+
+function previewFile() {
+  var preview = document.querySelector('.image_preview');
+  var file    = document.querySelector('input[type=file]').files[0];
+  var reader  = new FileReader();
+  
+  reader.addEventListener("load", function () {
+    preview.src = reader.result;
+  }, false);
+
+  if (file) {
+    reader.readAsDataURL(file);
+  }
+}
+
+
+
 //Typeahead bootstrap function.
 $(document).ready(function()
 {
@@ -89,3 +106,56 @@ $(document).ready(function()
     }
   });
 });
+
+$(document).ready(function(e)
+{
+  $("#uploadImage").on('submit',function(e)
+  {
+    e.preventDefault();
+    $("#status").empty().text("File is uploading ...");
+    $.ajax(
+    {
+      url: "/wiki_image/submitImage",
+      type: "post",
+      data: new FormData(this),
+      contentType: false,
+      cache: false,
+      processData: false,
+      success: function(data)
+      {
+        $('#status').empty().text(data);
+      },
+      error: function(data)
+      {
+        $('#status').empty().text(data);
+      }
+    });
+  });
+});
+
+/*$(document).ready(function()
+{
+  $("#uploadImage").submit(function()
+  {
+    var image_name = $('#image_name').val();
+    $("#status").empty().text("File is uploading ...");
+    $(this).ajaxSubmit(
+    {
+      data: {image_name: image_name},
+      contentType: false,
+      error: function(xhr)
+      {
+        alert(xhr);
+        //status('Error: ' + xhr.status);
+      },
+
+      success: function(response)
+      {
+        alert("HELLO");
+        //$('#status').empty().text(response);
+      }
+    });
+    return false;
+  });
+});*/
+
